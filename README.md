@@ -13,11 +13,9 @@ Subscriptions and real time data is a common requirement for apps. This reposito
 
 # Watch the video
 
-[![Watch the video]](https://github.com/chorobin/aws-trpc-subscriptions)
+[![Watch the video](https://img.youtube.com/vi/SkR402ytmvw/0.jpg)](https://youtu.be/SkR402ytmvw)
 
-[![Watch the video](https://img.youtube.com/vi/SkR402ytmvw/default.jpg)](https://youtu.be/SkR402ytmvw)
-
-# Or read the an example if you prefer!
+# Or see an example if you prefer
 
 Initialise subscriptions and define your tRPC router
 
@@ -142,9 +140,9 @@ const table = new Table(stack, "Subscriptions", {
 });
 ```
 
-Fields pk and sk are required fields to be the partition key and sort key respectively. A expireAt field is used to delete connection and subscriptions which are older than 4 hours
+Fields pk and sk are required fields to be the partition key and sort key respectively. A expireAt field is used to delete connections and subscriptions which are older than 4 hours
 
-Then define your web socket api construct
+Then define your websocket api construct
 
 ```typescript
 const websocket = new WebSocketApi(stack, "WebsocketApi", {
@@ -161,7 +159,7 @@ const websocket = new WebSocketApi(stack, "WebsocketApi", {
 });
 ```
 
-You should bind the subscription table to the web socket api so it can be used to connect, disconnect and handle subscriptions. $connect, $diconnect, $default reference lambdas which are created from the adaptors
+You should bind the subscription table to the web socket api so it can be used to connect, disconnect and handle subscriptions. $connect, $diconnect, $default reference lambdas which are created from the adapters
 
 Now you just need to use the SST's `sst/node` to connect the adaptors to your infrastructure
 
@@ -191,7 +189,7 @@ eventBus.subscribe("myEvent", {
 });
 ```
 
-You can then wire up the publisher to the web socket api and table
+You can then wire up the publisher to the websocket api and table
 
 ```typescript
 export const publisher = appSubscriptions.publisher({
