@@ -11,7 +11,13 @@ Subscriptions and real time data is a common requirement for apps. This reposito
 - To publish to a subscription in backend processes with type safety
 - To filter subscriptions and only publish to a subscription based on ctx or inputs
 
-# Show me an example!
+# Watch the video
+
+https://github.com/chorobin/aws-trpc-subscriptions
+
+[![Watch the video]](https://github.com/chorobin/aws-trpc-subscriptions)
+
+# Or read the an example if you prefer!
 
 Initialise subscriptions and define your tRPC router
 
