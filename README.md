@@ -195,7 +195,6 @@ You can then wire up the publisher to the web socket api and table
 
 ```typescript
 export const publisher = appSubscriptions.publisher({
-  store: dynamodb({ tableName: Table.Subscriptions.tableName, dynamoDBClient }),
   endpoint: WebSocketApi.WebsocketApi.httpsUrl,
 });
 ```
@@ -284,3 +283,31 @@ Lets recap. This approach allows us to continue using AWS infrastructure and ser
 ## subscriptions.routes.[procedure].filter
 
 Defines what fields from input and ctx you can filter on when publishing to the subscription. A filter must have a unique name. `ctx` and `input` are combined into a composite sort key when a subscription is started.
+
+## subscriptions.connect
+
+Creates the connect lambda function to handle websocket connections. Connections are put into dynamodb
+
+## subscriptions.handler
+
+Creates the main lambda function for handling subscriptions starting and stopping. Subscriptions are put into dynamodb - records are created for configured filters with a composite sort key (e.g name#nameOfFilter#ctx#userId#valueOfUserId#input#name#valueOfName)
+
+## subscriptions.disconnect
+
+Creates the delete lambda functions for handling of deletion of connections. It deletes the connection record along with the subscriptions. `expireAt` is still necessary because this is a best effort
+
+## subscriptions.publisher
+
+Creates the publisher that expects the url of the WebSocketApi. This can then be used in your backend services to publish messages to a particular subscription.
+
+## subscriptions.routes.[procedure].publish
+
+Publishes data to a subscription. A configured filter can be used to only notify subcribers which are listening on those values. This works by the `begins_with` operator in dynamodb as the composite sort key for a record is constructed from the filter values passed.
+
+# Limitations
+
+## Broadcasting
+
+While it is possible to broadcast to a limited number of connections with this approach, its generally recommended to restrict your subscriptions as much as possible using filters. For some use cases this is fine as it may be you just want a single user to know if a backend process has finished their action.
+
+To support broadcasting effeciently an AWS IoT Pub Sub adapter should be developed but this would be more involved and might come with different trade-offs. For example, I don't know a way to use AWS IoT Pub Sub with a pure WebSocket client. In which case a client side adapter is also necessary. This is possible future work and is worth investigating.
