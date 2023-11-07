@@ -13,9 +13,9 @@ Subscriptions and real time data is a common requirement for apps. This reposito
 
 # Watch the video
 
-https://github.com/chorobin/aws-trpc-subscriptions
-
 [![Watch the video]](https://github.com/chorobin/aws-trpc-subscriptions)
+
+[![Watch the video](https://img.youtube.com/vi/SkR402ytmvw/default.jpg)](https://youtu.be/SkR402ytmvw)
 
 # Or read the an example if you prefer!
 
